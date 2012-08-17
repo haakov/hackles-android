@@ -4,11 +4,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
+    
 <ImageView
 	android:id="@+id/test_image"
 	android:src="@drawable/test"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	/>
-</LinearLayout>
+	>
+</ImageView>
 
+<Button
+	android:id="@+id/ButtonPrevious"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Previous"
+	>
+</Button>
+
+<Button
+	android:id="@+id/ButtonNext"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="Next"
+	>
+</Button>
+</LinearLayout>
