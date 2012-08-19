@@ -27,7 +27,7 @@ public class HacklesActivity extends Activity
         super.onCreate(savedInstanceState);
     	setContentView(R.layout.main);
 	
-	image = (ImageView) findViewById(R.id.test_image);
+	image = (ImageView) findViewById(R.id.image);
 	Button Next = (Button) findViewById(R.id.ButtonNext);
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
