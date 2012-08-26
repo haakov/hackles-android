@@ -13,11 +13,16 @@ import android.widget.Button;
 import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.File;
+import android.os.Environment;
 
 
 public class HacklesActivity extends Activity
 {
-    int comic=1; // Which comic
+    int comic = 1;
+    File comicFile;
     ImageView image;
     
     /** Called when the activity is first created. */
@@ -31,13 +36,27 @@ public class HacklesActivity extends Activity
 	Button Next = (Button) findViewById(R.id.ButtonNext);
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
+    	try
+	{
+		comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
+	}
+	catch (Exception e)
+	{
+		comicFile.createNewFile();
+	}
+
+    	FileReader in = new FileReader(comicFile);
 
 	Next.setOnClickListener(new Button.OnClickListener() 
 	{
 		public void onClick(View v) {
 			try
 			{
-				// Do something!
+			/*	if(comic = null)
+				{
+					try{
+						in
+				}*/
 				if(comic != 364)
 				{
 					comic++;
@@ -57,7 +76,6 @@ public class HacklesActivity extends Activity
 		public void onClick(View v) {
 			try
 			{
-				// Do something!
 				if(comic != 1)
 				{
 					comic--;
