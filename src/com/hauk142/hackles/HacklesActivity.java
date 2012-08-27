@@ -17,6 +17,8 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.File;
 import android.os.Environment;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 
 public class HacklesActivity extends Activity
@@ -24,6 +26,7 @@ public class HacklesActivity extends Activity
     int comic = 1;
     File comicFile;
     ImageView image;
+    FileReader in;
     
     /** Called when the activity is first created. */
     @Override
@@ -36,16 +39,45 @@ public class HacklesActivity extends Activity
 	Button Next = (Button) findViewById(R.id.ButtonNext);
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
+    	/*try
+	{*/
+		comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
+	/*}
+	catch (IOException e)
+	{
+		e.printStackTrace();
+		//comicFile.createNewFile();
+	}*/
+
     	try
 	{
-		comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
+		in = new FileReader(comicFile);
 	}
-	catch (Exception e)
+	catch (FileNotFoundException e)
 	{
-		comicFile.createNewFile();
+		e.printStackTrace();
+	}
+    	
+	try
+	{
+		FileWriter out = new FileWriter(comicFile);
+	}
+	catch (FileNotFoundException e)
+	{
+		e.printStackTrace();
+	}
+	String buffer;
+	in.read(buffer, 0, 1);
+	if( isDigit(buffer) && buffer <= 364 && buffer >= 1 )
+	{
+		toast("Yes");
+	}
+	else
+	{
+		toast("Nope");
 	}
 
-    	FileReader in = new FileReader(comicFile);
+
 
 	Next.setOnClickListener(new Button.OnClickListener() 
 	{
