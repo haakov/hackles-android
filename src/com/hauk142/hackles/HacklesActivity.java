@@ -27,6 +27,8 @@ public class HacklesActivity extends Activity
     File comicFile;
     ImageView image;
     FileReader in;
+    FileWriter out;
+    char[] buffer;
     
     /** Called when the activity is first created. */
     @Override
@@ -60,22 +62,22 @@ public class HacklesActivity extends Activity
     	
 	try
 	{
-		FileWriter out = new FileWriter(comicFile);
+		out = new FileWriter(comicFile);
 	}
-	catch (FileNotFoundException e)
+	catch (IOException e)
 	{
 		e.printStackTrace();
 	}
-	String buffer;
-	in.read(buffer, 0, 1);
-	if( isDigit(buffer) && buffer <= 364 && buffer >= 1 )
+	try
 	{
-		toast("Yes");
+		in.read(buffer, 0, 1);
 	}
-	else
+	catch (IOException e)
 	{
-		toast("Nope");
+		toast("IOException");
 	}
+	String comicStr = Character.toString(buffer[1]);
+	comic = Integer.parseInt(comicStr);
 
 
 
@@ -93,6 +95,7 @@ public class HacklesActivity extends Activity
 				{
 					comic++;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
+					out.write(Integer.toString(comic), 0, 1);
 				}
 				else
 				{
@@ -130,6 +133,7 @@ public class HacklesActivity extends Activity
 	    Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
 	    toast.show();
     }
+
 
     private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
 	    protected Bitmap doInBackground(String... url) {
