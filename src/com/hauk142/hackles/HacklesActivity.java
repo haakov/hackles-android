@@ -16,6 +16,7 @@ import android.graphics.BitmapFactory;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import android.os.Environment;
 import java.io.IOException;
 import java.io.FileNotFoundException;
@@ -41,15 +42,19 @@ public class HacklesActivity extends Activity
 	Button Next = (Button) findViewById(R.id.ButtonNext);
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
-    	/*try
-	{*/
-		comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
-	/*}
-	catch (IOException e)
+	
+	comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
+	if(!comicFile.exists())
 	{
-		e.printStackTrace();
-		//comicFile.createNewFile();
-	}*/
+		try
+		{
+			comicFile.createNewFile();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
 
     	try
 	{
@@ -70,6 +75,8 @@ public class HacklesActivity extends Activity
 	}
 	try
 	{
+	try
+	{
 		in.read(buffer, 0, 1);
 	}
 	catch (IOException e)
@@ -78,7 +85,11 @@ public class HacklesActivity extends Activity
 	}
 	String comicStr = Character.toString(buffer[1]);
 	comic = Integer.parseInt(comicStr);
-
+	}
+	catch (NullPointerException e)
+	{
+		e.printStackTrace();
+	}
 
 
 	Next.setOnClickListener(new Button.OnClickListener() 
@@ -95,7 +106,9 @@ public class HacklesActivity extends Activity
 				{
 					comic++;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
-					out.write(Integer.toString(comic), 0, 1);
+					out.write(Integer.toString(comic));
+					out.flush();
+					toast(Integer.toString(comic));
 				}
 				else
 				{
@@ -115,6 +128,9 @@ public class HacklesActivity extends Activity
 				{
 					comic--;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
+					out.write(Integer.toString(comic));
+					out.flush();
+					toast(Integer.toString(comic));
 				}
 				else
 				{
