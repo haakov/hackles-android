@@ -13,13 +13,7 @@ import android.widget.Button;
 import android.view.View;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.File;
-import java.io.FileOutputStream;
 import android.os.Environment;
-import java.io.IOException;
-import java.io.FileNotFoundException;
 
 
 public class HacklesActivity extends Activity
@@ -39,7 +33,6 @@ public class HacklesActivity extends Activity
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 	
-
 
 	Next.setOnClickListener(new Button.OnClickListener() 
 	{
