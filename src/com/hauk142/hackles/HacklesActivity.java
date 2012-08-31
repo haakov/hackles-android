@@ -25,11 +25,7 @@ import java.io.FileNotFoundException;
 public class HacklesActivity extends Activity
 {
     int comic = 1;
-    File comicFile;
     ImageView image;
-    FileReader in;
-    FileWriter out;
-    char[] buffer;
     
     /** Called when the activity is first created. */
     @Override
@@ -43,53 +39,6 @@ public class HacklesActivity extends Activity
 	Button Previous = (Button) findViewById(R.id.ButtonPrevious);
 	new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 	
-	comicFile = new File(Environment.getExternalStorageDirectory() + File.separator + "hackles");
-	if(!comicFile.exists())
-	{
-		try
-		{
-			comicFile.createNewFile();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-    	try
-	{
-		in = new FileReader(comicFile);
-	}
-	catch (FileNotFoundException e)
-	{
-		e.printStackTrace();
-	}
-    	
-	try
-	{
-		out = new FileWriter(comicFile);
-	}
-	catch (IOException e)
-	{
-		e.printStackTrace();
-	}
-	try
-	{
-	try
-	{
-		in.read(buffer, 0, 1);
-	}
-	catch (IOException e)
-	{
-		toast("IOException");
-	}
-	String comicStr = Character.toString(buffer[1]);
-	comic = Integer.parseInt(comicStr);
-	}
-	catch (NullPointerException e)
-	{
-		e.printStackTrace();
-	}
 
 
 	Next.setOnClickListener(new Button.OnClickListener() 
@@ -106,8 +55,6 @@ public class HacklesActivity extends Activity
 				{
 					comic++;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
-					out.write(Integer.toString(comic));
-					out.flush();
 					toast(Integer.toString(comic));
 				}
 				else
@@ -128,8 +75,6 @@ public class HacklesActivity extends Activity
 				{
 					comic--;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
-					out.write(Integer.toString(comic));
-					out.flush();
 					toast(Integer.toString(comic));
 				}
 				else
