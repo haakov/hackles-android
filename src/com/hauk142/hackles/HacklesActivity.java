@@ -152,7 +152,6 @@ public class HacklesActivity extends Activity implements OnGestureListener
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
 					editor.commit();
-					toast(Integer.toString(comic));
 				}
 				else
 				{
@@ -170,7 +169,6 @@ public class HacklesActivity extends Activity implements OnGestureListener
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
 					editor.commit();
-					toast(Integer.toString(comic));
 				}
 				else
 				{
