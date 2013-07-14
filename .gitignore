@@ -1,7 +1,5 @@
-bin
 dev
 gen
 .*.swp
-*.apk
 proguard
 local.properties
