@@ -18,6 +18,7 @@ import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
+import android.os.Vibrator;
 
 public class HacklesActivity extends Activity implements OnGestureListener
 {
@@ -25,6 +26,7 @@ public class HacklesActivity extends Activity implements OnGestureListener
     ImageView image;
     SharedPreferences.Editor editor;
     private GestureDetector gesture;
+    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	    
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -58,6 +60,7 @@ public class HacklesActivity extends Activity implements OnGestureListener
 				}*/
 				if(comic != 364)
 				{
+					vibrator.vibrate(50);
 					comic++;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
@@ -80,6 +83,7 @@ public class HacklesActivity extends Activity implements OnGestureListener
 			{
 				if(comic != 1)
 				{
+					vibrator.vibrate(50);
 					comic--;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
@@ -146,8 +150,9 @@ public class HacklesActivity extends Activity implements OnGestureListener
 		    // Left to right
 		    if( e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY )
 		    {
-				if(comic != 1)
+			    	if(comic != 1)
 				{
+					vibrator.vibrate(50);
 					comic--;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
@@ -163,8 +168,9 @@ public class HacklesActivity extends Activity implements OnGestureListener
 		    // Right to left
 		    else if( e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY )
 		    {
-				if(comic != 364)
+			    	if(comic != 364)
 				{
+					vibrator.vibrate(50);
 					comic++;
 					new DownloadImage().execute("http://hackles.org/strips/cartoon" + comic + ".png");
 					editor.putInt("comic", comic);
