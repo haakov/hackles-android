@@ -26,7 +26,8 @@ public class HacklesActivity extends Activity implements OnGestureListener
     ImageView image;
     SharedPreferences.Editor editor;
     private GestureDetector gesture;
-    Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+    Context context;
+    Vibrator vibrator;
 	    
     private static final int SWIPE_MIN_DISTANCE = 120;
     private static final int SWIPE_MAX_OFF_PATH = 250;
@@ -37,6 +38,8 @@ public class HacklesActivity extends Activity implements OnGestureListener
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+	context = getApplicationContext();
+	vibrator = (Vibrator) getSystemService(context.VIBRATOR_SERVICE);
     	setContentView(R.layout.main);
 	gesture = new GestureDetector(this);
 	image = (ImageView) findViewById(R.id.image);
@@ -103,7 +106,6 @@ public class HacklesActivity extends Activity implements OnGestureListener
 
     public void toast(String text)
     {
-	    Context context = getApplicationContext();
 	    Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
 	    toast.show();
     }
